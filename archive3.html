@@ -119,7 +119,7 @@ boot();
 
 function boot(){
 
-document.getElementById("text").textContent=
+document.getElementById("text").textContent='
 
 ARCHIVE TERMINAL
 
@@ -129,7 +129,7 @@ Loading Visual Archive...
 
 Recovering Deleted Files...
 
-;
+';
 
 let progress=0;
 
@@ -176,11 +176,9 @@ let speed=150;
 
 function flash(){
 
-img.src=images[Math.floor(Math.random()images.length)];
-
-count++;
-
-speed=0.93;
+img.src = images[Math.floor(Math.random() * images.length)];
+    
+speed *= 0.93;
 
 if(count<70){
 
