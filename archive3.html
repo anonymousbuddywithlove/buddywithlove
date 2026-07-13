@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Archive</title>
+<title>Archive 3</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
@@ -10,14 +10,15 @@
 
 <div class="terminal">
 
-<pre id="terminalText"></pre>
+<pre id="boot">
+ARCHIVE TERMINAL
 
-<input
-    id="nextInput"
-    type="text"
-    autocomplete="off"
-    style="display:none;"
->
+ENTER ACCESS KEY:
+</pre>
+
+<input id="password" type="text" autocomplete="off">
+
+<button onclick="checkPassword()">UNLOCK</button>
 
 <p id="output"></p>
 
@@ -25,61 +26,40 @@
 
 <script>
 
-const lines = [
+function checkPassword(){
 
-"ACCESS GRANTED",
-"",
-"Loading Archive...",
-"",
-"Decrypting...",
-"",
-"████████████████████",
-"",
-"Recovered Fragment:",
-"",
-"37°14'41.7"N 122°08'42.2"W.",
-"",
-"Recovered Fragment:",
-"",
-"GOOD LUCK",
-""
-];
+    let answer=document.getElementById("password").value.trim();
 
-let current = 0;
+    if(answer==="7"){
 
-function typeNext(){
+        document.querySelector("button").style.display="none";
+        document.getElementById("password").style.display="none";
 
-    if(current >= lines.length){
+        document.getElementById("boot").textContent=
 
-    document.getElementById("terminalText").textContent += "> ";
+`ARCHIVE TERMINAL
 
-    const cursor = document.createElement("span");
-    cursor.textContent = "█";
+ACCESS GRANTED
 
-    document.getElementById("terminalText").appendChild(cursor);
+Loading Navigation Archive...
 
-    setInterval(function(){
+Searching...
 
-        cursor.style.visibility =
-            cursor.style.visibility === "hidden"
-            ? "visible"
-            : "hidden";
+Coordinates Recovered:
 
-    },500);
+37°14'41.7"N 122°08'42.2"W
 
-    return;
+> █`;
+
+    }
+
+    else{
+
+        document.getElementById("output").textContent="ACCESS DENIED";
+
+    }
 
 }
-
-    document.getElementById("terminalText").textContent += lines[current] + "\n";
-
-    current++;
-
-    setTimeout(typeNext,500);
-
-}
-
-typeNext();
 
 </script>
 
