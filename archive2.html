@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Archive</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="terminal">
+
+<pre id="terminalText"></pre>
+
+<input
+    id="nextInput"
+    type="text"
+    autocomplete="off"
+    style="display:none;"
+>
+
+<p id="output"></p>
+
+</div>
+
+<script>
+
+const lines = [
+
+"ACCESS GRANTED",
+"",
+"Loading Archive...",
+"",
+"Decrypting...",
+"",
+"████████████████████",
+"",
+"Recovered Fragment:",
+"",
+"reYomAElMauatecoCogiannd",
+"",
+">"
+
+];
+
+let current = 0;
+
+function typeNext(){
+
+    if(current >= lines.length){
+
+        document.getElementById("nextInput").style.display="block";
+        document.getElementById("nextInput").focus();
+        return;
+
+    }
+
+    document.getElementById("terminalText").textContent += lines[current] + "\n";
+
+    current++;
+
+    setTimeout(typeNext,500);
+
+}
+
+typeNext();
+
+</script>
+
+</body>
+</html>
