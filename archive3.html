@@ -5,7 +5,6 @@
 <title>Archive Terminal</title>
 
 <style>
-
 body{
     background:#000;
     color:#00ff00;
@@ -26,30 +25,20 @@ body{
 
 pre{
     white-space:pre-wrap;
-    font-size:18px;
+    font-size:20px;
 }
 
 input{
     width:100%;
-    background:#000;
+    margin-top:20px;
+    background:black;
     color:#00ff00;
     border:1px solid #00ff00;
     padding:10px;
-    font-size:18px;
-    margin-top:20px;
+    font-size:20px;
 }
-
-.cursor{
-    animation:blink 1s infinite;
-}
-
-@keyframes blink{
-    50%{
-        opacity:0;
-    }
-}
-
 </style>
+
 </head>
 
 <body>
@@ -60,7 +49,7 @@ input{
 
 ENTER ACCESS KEY:
 
-> </pre>
+></pre>
 
 <input id="password" autocomplete="off">
 
@@ -68,87 +57,94 @@ ENTER ACCESS KEY:
 
 <script>
 
-const input=document.getElementById("password");
+const password = document.getElementById("password");
 
-input.focus();
+password.focus();
 
-input.addEventListener("keydown",function(e){
+password.addEventListener("keydown", function(event){
 
-    if(e.key==="Enter"){
+    if(event.key === "Enter"){
 
-        unlock();
+        if(password.value.trim() === "7"){
 
-    }
+            password.style.display = "none";
 
-});
+            typeLines();
 
-function unlock(){
+        }else{
 
-    if(input.value.trim()!=="7"){
+            password.value = "";
 
-        document.getElementById("screen").textContent=
-`ARCHIVE TERMINAL
+            document.getElementById("screen").textContent =
+ARCHIVE TERMINAL
 
 ACCESS DENIED
 
 ENTER ACCESS KEY:
 
-> `;
+>;
 
-        input.value="";
-        return;
+        }
 
     }
 
-    input.style.display="none";
-
-    boot();
-
-}
-
-function boot(){
-
-const screen=document.getElementById("screen");
+});
 
 const lines = [
 
 "ARCHIVE TERMINAL",
+
 "",
+
 "ACCESS GRANTED",
+
 "",
+
 "Loading Navigation Archive...",
+
 "",
+
 "Searching...",
+
 "",
+
 "Coordinates Recovered:",
+
 "",
+
 37°14'41.7"N 122°08'42.2"W,
+
 "",
+
 "> █"
 
 ];
 
-screen.textContent="";
+function typeLines(){
 
-let i=0;
+    let screen = document.getElementById("screen");
 
-function nextLine(){
+    screen.textContent = "";
 
-    if(i>=lines.length){
+    let i = 0;
 
-        return;
+    function next(){
+
+        if(i >= lines.length){
+
+            return;
+
+        }
+
+        screen.textContent += lines[i] + "\n";
+
+        i++;
+
+        setTimeout(next,500);
 
     }
 
-    screen.textContent+=lines[i]+"\n";
-
-    i++;
-
-    setTimeout(nextLine,450);
-
-}
-
-nextLine();
+    next();
 
 }
 
