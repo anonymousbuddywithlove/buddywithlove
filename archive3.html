@@ -1,125 +1,85 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Archive Terminal</title>
-
-<style>
-
-body{
-    background:black;
-    color:#00ff00;
-    font-family:Courier New, monospace;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-    margin:0;
-}
-
-#terminal{
-    width:700px;
-    border:2px solid #00ff00;
-    padding:30px;
-    box-shadow:0 0 20px #00ff00;
-}
-
-pre{
-    white-space:pre-wrap;
-    font-size:20px;
-}
-
-input{
-    width:100%;
-    background:black;
-    color:#00ff00;
-    border:1px solid #00ff00;
-    padding:10px;
-    font-size:20px;
-    margin-top:20px;
-}
-
-button{
-    margin-top:15px;
-    background:black;
-    color:#00ff00;
-    border:1px solid #00ff00;
-    padding:10px 20px;
-    font-size:18px;
-    cursor:pointer;
-}
-
-button:hover{
-    background:#003300;
-}
-
-</style>
-
+<title>Archive</title>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div id="terminal">
+<div class="terminal">
 
-<pre id="screen">ARCHIVE TERMINAL
+<pre id="terminalText"></pre>
 
-ENTER ACCESS KEY:
+<input
+    id="nextInput"
+    type="text"
+    autocomplete="off"
+    style="display:none;"
+>
 
-></pre>
-
-<input id="password" type="text">
-
-<button onclick="unlock()">UNLOCK</button>
+<p id="output"></p>
 
 </div>
 
 <script>
 
-function unlock(){
+const lines = [
 
-    var password = document.getElementById("password").value;
-    var screen = document.getElementById("screen");
+"ACCESS GRANTED",
+"",
+"Loading Archive...",
+"",
+"Decrypting...",
+"",
+"████████████████████",
+"",
+"Recovered Fragment:",
+"",
+"37°14'41.7"N 122°08'42.2"W.",
+"",
+"Recovered Fragment:",
+"",
+"GOOD LUCK",
+""
+];
 
-    if(password === "7"){
+let current = 0;
 
-        document.getElementById("password").style.display = "none";
-        document.querySelector("button").style.display = "none";
+function typeNext(){
 
-        screen.textContent =
+    if(current >= lines.length){
 
-ARCHIVE TERMINAL
+    document.getElementById("terminalText").textContent += "> ";
 
-ACCESS GRANTED
+    const cursor = document.createElement("span");
+    cursor.textContent = "█";
 
-Loading Navigation Archive...
+    document.getElementById("terminalText").appendChild(cursor);
 
-Searching...
+    setInterval(function(){
 
-Coordinates Recovered:
+        cursor.style.visibility =
+            cursor.style.visibility === "hidden"
+            ? "visible"
+            : "hidden";
 
-37°14'41.7"N 122°08'42.2"W
+    },500);
 
-> █;
-
-    }
-
-    else{
-
-        screen.textContent =
-
-ARCHIVE TERMINAL
-
-ACCESS DENIED
-
-ENTER ACCESS KEY:
-
->;
-
-        document.getElementById("password").value = "";
-
-    }
+    return;
 
 }
+
+    document.getElementById("terminalText").textContent += lines[current] + "\n";
+
+    current++;
+
+    setTimeout(typeNext,500);
+
+}
+
+typeNext();
 
 </script>
 
