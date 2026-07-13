@@ -1,1 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Archive Terminal</title>
 
+<style>
+
+body{
+
+    background:black;
+    color:#00ff00;
+    font-family:Courier New, monospace;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    height:100vh;
+
+    margin:0;
+
+}
+
+#terminal{
+
+    width:900px;
+
+    text-align:center;
+
+}
+
+input{
+
+    background:black;
+
+    color:#00ff00;
+
+    border:1px solid #00ff00;
+
+    font-size:20px;
+
+    padding:8px;
+
+}
+
+button{
+
+    background:black;
+
+    color:#00ff00;
+
+    border:1px solid #00ff00;
+
+    padding:8px 18px;
+
+    cursor:pointer;
+
+}
+
+img{
+
+    max-width:100%;
+
+    max-height:600px;
+
+    display:none;
+
+    margin:auto;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="terminal">
+
+<pre id="text">
+
+ARCHIVE TERMINAL
+
+ENTER ACCESS KEY:
+
+</pre>
+
+<input id="password">
+
+<button onclick="unlock()">UNLOCK</button>
+
+<p id="status"></p>
+
+<img id="viewer">
+
+</div>
+
+<script>
+
+function unlock(){
+
+let p=document.getElementById("password").value;
+
+if(p!="7"){
+
+document.getElementById("status").innerHTML="ACCESS DENIED";
+
+return;
+
+}
+
+document.getElementById("password").style.display="none";
+document.querySelector("button").style.display="none";
+
+boot();
+
+}
+
+function boot(){
+
+document.getElementById("text").textContent=
+
+ARCHIVE TERMINAL
+
+ACCESS GRANTED
+
+Loading Visual Archive...
+
+Recovering Deleted Files...
+
+;
+
+let progress=0;
+
+let interval=setInterval(function(){
+
+progress+=4;
+
+document.getElementById("status").innerHTML=
+
+progress+"%";
+
+if(progress>=100){
+
+clearInterval(interval);
+
+document.getElementById("status").innerHTML="RECOVERY COMPLETE";
+
+setTimeout(flashImages,800);
+
+}
+
+},70);
+
+}
+
+const images=[];
+
+for(let i=1;i<=25;i++){
+
+let num=i.toString().padStart(2,"0");
+
+images.push("images/"+num+".jpg");
+
+}
+
+function flashImages(){
+const img=document.getElementById("viewer");
+
+img.style.display="block";
+
+let count=0;
+
+let speed=150;
+
+function flash(){
+
+img.src=images[Math.floor(Math.random()images.length)];
+
+count++;
+
+speed=0.93;
+
+if(count<70){
+
+setTimeout(flash,speed);
+
+}else{
+
+img.src="images/25.jpg";
+
+document.getElementById("status").innerHTML="MEDIA RECOVERY COMPLETE";
+
+}
+
+}
+
+flash();
+
+}
+
+</script>
+
+</body>
+</html>
