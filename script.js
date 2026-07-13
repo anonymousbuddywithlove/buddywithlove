@@ -1,21 +1,29 @@
-function checkPassword() {
+function checkPassword(correctPassword, successAction) {
 
-    let answer = document.getElementById("password").value.trim();
+    const answer = document.getElementById("password").value.trim();
+    const output = document.getElementById("output");
 
-    if(answer === "42"){
+    if (answer === correctPassword) {
 
-        document.getElementById("output").innerHTML = "ACCESS GRANTED";
+        output.textContent = "ACCESS GRANTED";
 
-        setTimeout(function(){
+        setTimeout(function () {
 
-            window.location.href = "archive2.html";
- 
-      },1500);     
+            if (successAction.endsWith(".html")) {
 
+                window.location.href = successAction;
+
+            } else {
+
+                document.body.innerHTML = successAction;
+
+            }
+
+        }, 1500);
 
     } else {
 
-        document.getElementById("output").innerHTML = "ACCESS DENIED";
+        output.textContent = "ACCESS DENIED";
 
     }
 
