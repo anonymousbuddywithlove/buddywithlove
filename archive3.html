@@ -87,13 +87,13 @@ function unlock(){
     if(input.value.trim()!=="7"){
 
         document.getElementById("screen").textContent=
-ARCHIVE TERMINAL
+`ARCHIVE TERMINAL
 
 ACCESS DENIED
 
 ENTER ACCESS KEY:
 
-> ;
+> `;
 
         input.value="";
         return;
@@ -110,7 +110,7 @@ function boot(){
 
 const screen=document.getElementById("screen");
 
-const lines=[
+const lines = [
 
 "ARCHIVE TERMINAL",
 "",
@@ -122,7 +122,7 @@ const lines=[
 "",
 "Coordinates Recovered:",
 "",
-'37°14'41.7"N 122°08'42.2"W',
+'37°14'41.7"N 122°08'42.2"W.',
 "",
 "> █"
 
