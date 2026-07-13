@@ -9,6 +9,8 @@ function checkPassword() {
         setTimeout(function(){
 
             window.location.href = "archive2.html";
+ 
+      },1500);     
 
     if(answer === "7"){
 
@@ -18,7 +20,7 @@ function checkPassword() {
 
             window.location.href = "archive3.html";
 
-        },1500);
+      },1500);
 
     } else {
 
