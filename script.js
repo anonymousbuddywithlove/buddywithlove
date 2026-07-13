@@ -1,14 +1,14 @@
 function checkPassword() {
 
-    let answer = document.getElementById("password").value.toUpperCase();
+    let answer = document.getElementById("password").value.trim();
 
-    if(answer === "CROWSNEST"){
+    if(answer === "42"){
 
         document.getElementById("output").innerHTML = "ACCESS GRANTED";
 
         setTimeout(function(){
 
-            window.location.href = "level2.html";
+            window.location.href = "archive2.html";
 
         },1500);
 
