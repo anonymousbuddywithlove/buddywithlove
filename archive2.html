@@ -39,8 +39,10 @@ const lines = [
 "",
 "reYomAElMauatecoCogiannd",
 "",
-">"
-
+"Recovered Fragment:",
+"",
+"reYomAElMauatecoCogiannd",
+""
 ];
 
 let current = 0;
@@ -49,11 +51,25 @@ function typeNext(){
 
     if(current >= lines.length){
 
-        document.getElementById("nextInput").style.display="block";
-        document.getElementById("nextInput").focus();
-        return;
+    document.getElementById("terminalText").textContent += "> ";
 
-    }
+    const cursor = document.createElement("span");
+    cursor.textContent = "█";
+
+    document.getElementById("terminalText").appendChild(cursor);
+
+    setInterval(function(){
+
+        cursor.style.visibility =
+            cursor.style.visibility === "hidden"
+            ? "visible"
+            : "hidden";
+
+    },500);
+
+    return;
+
+}
 
     document.getElementById("terminalText").textContent += lines[current] + "\n";
 
