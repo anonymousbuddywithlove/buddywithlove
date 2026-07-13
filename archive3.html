@@ -7,194 +7,148 @@
 <style>
 
 body{
-
-    background:black;
+    background:#000;
     color:#00ff00;
     font-family:Courier New, monospace;
-
     display:flex;
     justify-content:center;
     align-items:center;
-
     height:100vh;
-
     margin:0;
-
 }
 
 #terminal{
+    width:700px;
+    border:2px solid #00ff00;
+    padding:30px;
+    box-shadow:0 0 20px #00ff00;
+}
 
-    width:900px;
-
-    text-align:center;
-
+pre{
+    white-space:pre-wrap;
+    font-size:18px;
 }
 
 input{
-
-    background:black;
-
+    width:100%;
+    background:#000;
     color:#00ff00;
-
     border:1px solid #00ff00;
-
-    font-size:20px;
-
-    padding:8px;
-
+    padding:10px;
+    font-size:18px;
+    margin-top:20px;
 }
 
-button{
-
-    background:black;
-
-    color:#00ff00;
-
-    border:1px solid #00ff00;
-
-    padding:8px 18px;
-
-    cursor:pointer;
-
+.cursor{
+    animation:blink 1s infinite;
 }
 
-img{
-
-    max-width:100%;
-
-    max-height:600px;
-
-    display:none;
-
-    margin:auto;
-
+@keyframes blink{
+    50%{
+        opacity:0;
+    }
 }
 
 </style>
-
 </head>
 
 <body>
 
 <div id="terminal">
 
-<pre id="text">
-
-ARCHIVE TERMINAL
+<pre id="screen">ARCHIVE TERMINAL
 
 ENTER ACCESS KEY:
 
 </pre>
 
-<input id="password">
-
-<button onclick="unlock()">UNLOCK</button>
-
-<p id="status"></p>
-
-<img id="viewer">
+<input id="password" autocomplete="off">
 
 </div>
 
 <script>
 
+const input=document.getElementById("password");
+
+input.focus();
+
+input.addEventListener("keydown",function(e){
+
+    if(e.key==="Enter"){
+
+        unlock();
+
+    }
+
+});
+
 function unlock(){
 
-let p=document.getElementById("password").value;
+    if(input.value.trim()!=="7"){
 
-if(p!="7"){
+        document.getElementById("screen").textContent=
+ARCHIVE TERMINAL
 
-document.getElementById("status").innerHTML="ACCESS DENIED";
+ACCESS DENIED
 
-return;
+ENTER ACCESS KEY:
 
-}
+> ;
 
-document.getElementById("password").style.display="none";
-document.querySelector("button").style.display="none";
+        input.value="";
+        return;
 
-boot();
+    }
+
+    input.style.display="none";
+
+    boot();
 
 }
 
 function boot(){
 
-document.getElementById("text").textContent='
+const screen=document.getElementById("screen");
 
-ARCHIVE TERMINAL
+const lines=[
 
-ACCESS GRANTED
+"ARCHIVE TERMINAL",
+"",
+"ACCESS GRANTED",
+"",
+"Loading Navigation Archive...",
+"",
+"Searching...",
+"",
+"Coordinates Recovered:",
+"",
+'37°14'41.7"N 122°08'42.2"W',
+"",
+"> █"
 
-Loading Visual Archive...
+];
 
-Recovering Deleted Files...
+screen.textContent="";
 
-';
+let i=0;
 
-let progress=0;
+function nextLine(){
 
-let interval=setInterval(function(){
+    if(i>=lines.length){
 
-progress+=4;
+        return;
 
-document.getElementById("status").innerHTML=
+    }
 
-progress+"%";
+    screen.textContent+=lines[i]+"\n";
 
-if(progress>=100){
+    i++;
 
-clearInterval(interval);
-
-document.getElementById("status").innerHTML="RECOVERY COMPLETE";
-
-setTimeout(flashImages,800);
-
-}
-
-},70);
-
-}
-
-const images=[];
-
-for(let i=1;i<=25;i++){
-
-let num=i.toString().padStart(2,"0");
-
-images.push("images/"+num+".jpg");
+    setTimeout(nextLine,450);
 
 }
 
-function flashImages(){
-const img=document.getElementById("viewer");
-
-img.style.display="block";
-
-let count=0;
-
-let speed=150;
-
-function flash(){
-
-img.src = images[Math.floor(Math.random() * images.length)];
-    
-speed *= 0.93;
-
-if(count<70){
-
-setTimeout(flash,speed);
-
-}else{
-
-img.src="images/25.jpg";
-
-document.getElementById("status").innerHTML="MEDIA RECOVERY COMPLETE";
-
-}
-
-}
-
-flash();
+nextLine();
 
 }
 
