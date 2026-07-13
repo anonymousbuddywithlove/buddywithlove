@@ -10,6 +10,14 @@ function checkPassword() {
 
             window.location.href = "archive2.html";
 
+    if(answer === "7"){
+
+        document.getElementById("output").innerHTML = "ACCESS GRANTED";
+
+        setTimeout(function(){
+
+            window.location.href = "archive3.html";
+
         },1500);
 
     } else {
